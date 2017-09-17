@@ -1,7 +1,7 @@
 class Word
   attr_reader :scrubbed_dict, :blank_word, :random_word
 
-  @@raw_dictionary = File.readlines("5desk.txt")
+  @@raw_dictionary = File.readlines("./lib/5desk.txt")
 
   #initialize object
   def initialize
@@ -29,13 +29,13 @@ class Word
 
   #loads a scrubbed dictionary
   def load_dictionary
-    @scrubbed_dict = File.readlines("dictionary.txt")
+    @scrubbed_dict = File.readlines("./lib/dictionary.txt")
     puts "Dictionary loaded"
   end
 
   #checks working dir for scrubbed dictionary
   def dictionary_exists?
-    unless File.exist?("dictionary.txt")
+    unless File.exist?("./lib/dictionary.txt")
       scrub_dictionary(@@raw_dictionary)
       create_dictionary_file(scrub_dictionary(@@raw_dictionary))
     end
@@ -44,7 +44,7 @@ class Word
   
   #creates newly scrubbed dictionary file
   def create_dictionary_file(dictionary)
-    dictionary_file = File.open("dictionary.txt", "w")
+    dictionary_file = File.open("./lib/dictionary.txt", "w")
     dictionary_file.puts dictionary
     dictionary_file.close
   end
