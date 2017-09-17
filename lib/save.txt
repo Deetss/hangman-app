@@ -1,0 +1,1 @@
+{"turns":9,"guesses":["a","o","e"],"secret_word":"tamely","hidden_word":"_a_e__"}
