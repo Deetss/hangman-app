@@ -31,8 +31,8 @@ class Game
   
   #looks for "save.txt" in the working directory, returns string if no save present
   def find_save_file
-    if File.exist?("save.txt")
-      save_file = File.read("save.txt")
+    if File.exist?("./lib/save.txt")
+      save_file = File.read("./lib/save.txt")
       load_save(save_file)
     else
       puts "No save found!"
@@ -51,7 +51,7 @@ class Game
   #serializes the current object, creates a save file, then exits game
   def create_save
     @save_data = {:turns => @turns,:guesses => @guesses,:secret_word => @secret_word, :hidden_word => @hidden_word}
-    save = File.new("save.txt", "w+")
+    save = File.new("./lib/save.txt", "w+")
     save.puts JSON::dump(save_data)
     save.close
   end
@@ -149,14 +149,13 @@ class Game
 
 end
 
-game = Game.new
-word = game.secret_word
-
-game.start_game
-while !game.player_won?
-  game.show_guesses
-  game.make_guess
-  game.check_guess
-  game.end_turn
-  game.player_won?
-end
+# game = Game.new
+# word = game.secret_word
+# game.start_game
+# while !game.player_won?
+#   game.show_guesses
+#   game.make_guess
+#   game.check_guess
+#   game.end_turn
+#   game.player_won?
+# end
