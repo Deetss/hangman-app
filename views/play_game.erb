@@ -3,15 +3,18 @@
 <head></head>
 
 <body>
+    <p><%= feedback %></p>
     <p>
         <%= blanks %>
     </p>
-    <form>
+    <p><%= guesses %></p>
+    <p>Turns: <%= turns %></p>
+    <form action="./make_guess" method="get">
         <input type="text" name="guess">
-        <input type="button" value="Guess!">
+        <input type="submit" value="Guess!">
     </form>
     <a href="/">Back</a>
-    <a href="./play_game">Start Over?</a>
+    <a href="./new_game">Start Over?</a>
 </body>
 
 </html>

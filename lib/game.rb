@@ -3,8 +3,8 @@ require "json"
 
 class Game
 
-  attr_accessor :current_guess
-  attr_reader :turns,:guesses, :secret_word, :hidden_word, :save_data
+  attr_accessor :current_guess, :guesses
+  attr_reader :turns, :secret_word, :hidden_word, :save_data
 
   #initializing object
   def initialize
@@ -56,18 +56,6 @@ class Game
     save.close
   end
 
-  #prompts the user to make a guess then shovels the guess into :guesses
-  def make_guess
-      puts "Make a guess:"
-      @current_guess = gets.chomp
-      unless good_guess?
-        puts "That is an invalid guess, please try again!"
-        @current_guess = gets.chomp
-      end
-      puts
-      guesses << current_guess unless current_guess == "save" || current_guess == secret_word
-  end
-
   #checks for invalid guess
   def good_guess?
     current_guess == "save" || current_guess == secret_word || current_guess.length == 1
@@ -78,34 +66,38 @@ class Game
   def show_letter
       split_blanks = hidden_word.split("")
       occurences = []
-      occurences = (0 ... secret_word.length).find_all { |i| secret_word[i,1] == current_guess}
-      occurences.each { |i| split_blanks[i] = current_guess}
+      occurences = (0 ... secret_word.length).find_all { |i| secret_word[i,1] == @current_guess}
+      occurences.each { |i| split_blanks[i] = @current_guess}
       @hidden_word = split_blanks.join("")
-      puts hidden_word
+      hidden_word
   end
 
   #gives feedback to the user depending on their input
-  def check_guess
-    if current_guess == secret_word
+  def check_guess(guess)
+    @current_guess = guess
+    if @current_guess == secret_word
       player_won?
+    elsif @current_guess.nil?
+      return
     else
-      if secret_word.include? current_guess
+      if secret_word.include? @current_guess
         show_letter
-        puts "This word includes the guessed letter\n\n"
-      elsif current_guess == "save"
-        create_save
-        puts "Game saved! Exiting game!"
-        exit
+        "This word includes the guessed letter\n\n"
+      # elsif guess == "save"
+      #   create_save
+      #   "Game saved! Exiting game!"
+      #   exit
       else
         show_letter
-        puts "This word does not include the guessed letter\n\n"
+        "This word does not include the guessed letter\n\n"
       end
     end
+    @guesses << @current_guess unless @current_guess == secret_word
   end
 
   #shows a list of the current guesses, unless its the first turn
   def show_guesses
-    puts "Guesses: #{guesses.join(" ")}\n" unless turns == 12
+    @guesses.join(" ") unless turns == 12
   end
   
   #at the end of the game the user is prompted to exit or play again
@@ -124,10 +116,8 @@ class Game
   def end_turn
     @turns -= 1
     if turns == 0 || current_guess == secret_word
-      puts "Game over! \n\nThe word was #{secret_word}"
+      "Game over! \n\nThe word was #{secret_word}"
       exit_game?
-    else
-      puts "Turns left: #{turns} \n\n______________________________________________"
     end
   end
   
@@ -139,7 +129,6 @@ class Game
   #player wins if they completely guess the secret_word or there are no more blanks
   def player_won?
     if current_guess == secret_word || !have_blanks?
-      puts "Congratulations! You have successfully solved the puzzle!\n"
       exit_game?
       return true
     else
@@ -154,8 +143,4 @@ end
 # game.start_game
 # while !game.player_won?
 #   game.show_guesses
-#   game.make_guess
-#   game.check_guess
-#   game.end_turn
-#   game.player_won?
 # end
