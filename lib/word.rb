@@ -19,12 +19,14 @@ class Word
 
   #scrubs a indicated dictionary file
   def scrub_dictionary(dictionary)
+    puts "Scrubbing dictionary!"
     dictionary.each do |word|
-      word.downcase
+      word.downcase!
       unless word.length >= 5 && word.length <= 12
         dictionary.delete(word)
       end
     end
+    puts "Dictionary scrubbed!"
   end
 
   #loads a scrubbed dictionary

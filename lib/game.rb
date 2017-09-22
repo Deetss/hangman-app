@@ -55,11 +55,6 @@ class Game
     save.puts JSON::dump(save_data)
     save.close
   end
-
-  #checks for invalid guess
-  def good_guess?
-    current_guess == "save" || current_guess == secret_word || current_guess.length == 1
-  end
   
   #parses through the secret word to check for matching guesses, then reveals a correct guess
   #in the hidden_word string
@@ -75,6 +70,7 @@ class Game
   #gives feedback to the user depending on their input
   def check_guess(guess)
     @current_guess = guess
+    @guesses << @current_guess unless @current_guess == secret_word
     if @current_guess == secret_word
       player_won?
     elsif @current_guess.nil?
@@ -88,48 +84,33 @@ class Game
       #   "Game saved! Exiting game!"
       #   exit
       else
-        show_letter
+        @turns -= 1
         "This word does not include the guessed letter\n\n"
       end
     end
-    @guesses << @current_guess unless @current_guess == secret_word
   end
 
   #shows a list of the current guesses, unless its the first turn
   def show_guesses
-    @guesses.join(" ") unless turns == 12
-  end
-  
-  #at the end of the game the user is prompted to exit or play again
-  def exit_game?
-    puts "Would you like to exit game or play again?"
-    decision = gets.chomp
-    if decision.downcase == "exit"
-      exit
-    elsif decision.downcase == "play again"
-      initialize
-    end
+    @guesses.join(" ")
   end
 
   #ends turn by removing one remaining turn and outputing a string showing remaining turns
   #unless there are no turns remaining then it calls exit_game?
   def end_turn
-    @turns -= 1
-    if turns == 0 || current_guess == secret_word
-      "Game over! \n\nThe word was #{secret_word}"
-      exit_game?
-    end
+     if @turns < 1 || current_guess == secret_word
+       player_won?
+     end
   end
   
   #checks if the hidden word still has any blanks
   def have_blanks?
-    hidden_word.match("_")
+    @hidden_word.match("_")
   end
 
   #player wins if they completely guess the secret_word or there are no more blanks
   def player_won?
     if current_guess == secret_word || !have_blanks?
-      exit_game?
       return true
     else
       return false
