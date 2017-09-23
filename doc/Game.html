@@ -939,7 +939,7 @@ a correct guess in the hidden_word string.</p>
       <pre class="code"><span class="info file"># File 'lib/game.rb', line 71</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_check_guess'>check_guess</span><span class='lparen'>(</span><span class='id identifier rubyid_guess'>guess</span><span class='rparen'>)</span>
-  <span class='ivar'>@current_guess</span> <span class='op'>=</span> <span class='id identifier rubyid_guess'>guess</span>
+  <span class='ivar'>@current_guess</span> <span class='op'>=</span> <span class='id identifier rubyid_guess'>guess</span><span class='period'>.</span><span class='id identifier rubyid_downcase!'>downcase!</span>
   <span class='ivar'>@guesses</span> <span class='op'>&lt;&lt;</span> <span class='ivar'>@current_guess</span> <span class='kw'>unless</span> <span class='ivar'>@current_guess</span> <span class='op'>==</span> <span class='id identifier rubyid_secret_word'>secret_word</span>
   <span class='kw'>if</span> <span class='ivar'>@current_guess</span> <span class='op'>==</span> <span class='id identifier rubyid_secret_word'>secret_word</span>
     <span class='id identifier rubyid_player_won?'>player_won?</span>
@@ -1431,7 +1431,7 @@ a correct guess in the hidden_word string</p>
 </div>
 
       <div id="footer">
-  Generated on Sat Sep 23 13:35:26 2017 by
+  Generated on Sat Sep 23 13:37:52 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.9 (ruby-2.4.1).
 </div>
