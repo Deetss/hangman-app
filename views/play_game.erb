@@ -1,20 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-<head></head>
-
-<body>
-    <p><%= feedback %></p>
-    <p>
-        <%= blanks %>
-    </p>
-    <p><%= guesses %></p>
-    <p>Turns: <%= turns %></p>
-    <form action="./make_guess" method="get">
-        <input type="text" name="guess">
-        <input type="submit" value="Guess!">
-    </form>
-    <a href="/">Back</a>
-    <a href="./new_game">Start Over?</a>
-</body>
+    <head>
+        <link rel="stylesheet" type="text/css" href="main_style.css">
+    </head>
+    <body>
+        <div class="center">
+            <h1>Hangman<span id="small">*</span></h1>
+            <p>
+                <%= blanks %>
+            </p>
+            <% unless guesses.nil? %>
+                <p> Guesses Made: <%= guesses %></p>
+            <% end %>
+            <p>Turns: <%= turns %></p>
+            <form action="./make_guess" method="get">
+                <input type="text" name="guess">
+                <input type="submit" value="Guess!">
+            </form>
+            <a href="/">Back</a>
+            <a href="./new_game">Start Over?</a>
+            <h6>*hangman sold seperately</h6>
+         </div>
+    </body>
 
 </html>

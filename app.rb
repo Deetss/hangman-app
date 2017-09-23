@@ -2,6 +2,7 @@ require 'sinatra'
 require 'sinatra/reloader' if development?
 require './lib/game.rb'
 
+
 enable :sessions
 
 get '/end_game' do
@@ -29,17 +30,14 @@ end
 get '/play_game' do
     blanks = ""
     guess = session[:guess]
-    p $game.guesses
-    $game.hidden_word.each_char do |dash|
-       blanks << dash + " "
-    end
     feedback = $game.check_guess(guess) unless guess.nil?
-
     if feedback == true || $game.turns == 0 || !$game.have_blanks?
         redirect '/end_game'
     end
-
-    erb :play_game, :locals => {:blanks => blanks, :guesses => $game.show_guesses, :turns => $game.turns, :feedback => feedback}
+    $game.hidden_word.each_char do |dash|
+        blanks << dash + " "
+     end
+    erb :play_game, :locals => {:blanks => blanks, :guesses => $game.show_guesses, :turns => $game.turns}
 end
 
 
