@@ -5,6 +5,7 @@ require './lib/game.rb'
 enable :sessions
 
 get '/end_game' do
+    @session = session
     if @session["game"].player_won?
         feedback = "Congratulations, you've successfully guessed the word! The word was #{@session["game"].secret_word}!"
     else
@@ -14,6 +15,7 @@ get '/end_game' do
 end
 
 get '/make_guess' do
+    @session = session
     @session[:guess] = params[:guess]
 
     feedback = @session["game"].check_guess(@session[:guess]) unless @session[:guess].nil?
@@ -45,7 +47,6 @@ end
 
 
 get '/' do
-    @session = session
     erb :index
 end
 
