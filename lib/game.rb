@@ -69,7 +69,7 @@ class Game
 
   #gives feedback to the user depending on their input
   def check_guess(guess)
-    @current_guess = guess.downcase!
+    @current_guess = guess.downcase
     @guesses << @current_guess unless @current_guess == secret_word
     if @current_guess == secret_word
       player_won?
