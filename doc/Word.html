@@ -100,16 +100,6 @@
 </div>
 
 
-  <h2>Constant Summary</h2>
-  <dl class="constants">
-    
-      <dt id="raw_dictionary-classvariable" class="">@@raw_dictionary =
-        
-      </dt>
-      <dd><pre class="code"><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_readlines'>readlines</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>./lib/5desk.txt</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span></pre></dd>
-    
-  </dl>
-
 
 
 
@@ -169,35 +159,6 @@
   
     <span class="summary_desc"><div class='inline'>
 <p>Returns the value of attribute random_word.</p>
-</div></span>
-  
-</li>
-
-    
-      <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#scrubbed_dict-instance_method" title="#scrubbed_dict (instance method)">#<strong>scrubbed_dict</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-    
-      <span class="note title readonly">readonly</span>
-    
-    
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-<p>Returns the value of attribute scrubbed_dict.</p>
 </div></span>
   
 </li>
@@ -418,18 +379,18 @@
       <pre class="lines">
 
 
+6
 7
 8
 9
-10
-11</pre>
+10</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/word.rb', line 7</span>
+      <pre class="code"><span class="info file"># File 'lib/word.rb', line 6</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span>
   <span class='id identifier rubyid_dictionary_exists?'>dictionary_exists?</span>
-  <span class='ivar'>@random_word</span> <span class='op'>=</span> <span class='id identifier rubyid_pick_random_word'>pick_random_word</span><span class='lparen'>(</span><span class='id identifier rubyid_scrubbed_dict'>scrubbed_dict</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_strip'>strip</span>
+  <span class='ivar'>@random_word</span> <span class='op'>=</span> <span class='id identifier rubyid_pick_random_word'>pick_random_word</span><span class='lparen'>(</span><span class='ivar'>@scrubbed_dict</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_strip'>strip</span>
   <span class='ivar'>@blank_word</span> <span class='op'>=</span> <span class='id identifier rubyid_hide_word'>hide_word</span><span class='lparen'>(</span><span class='id identifier rubyid_random_word'>random_word</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -470,12 +431,12 @@
       <pre class="lines">
 
 
-2
 3
-4</pre>
+4
+5</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/word.rb', line 2</span>
+      <pre class="code"><span class="info file"># File 'lib/word.rb', line 3</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_blank_word'>blank_word</span>
   <span class='ivar'>@blank_word</span>
@@ -513,58 +474,15 @@
       <pre class="lines">
 
 
-2
 3
-4</pre>
+4
+5</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/word.rb', line 2</span>
+      <pre class="code"><span class="info file"># File 'lib/word.rb', line 3</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_random_word'>random_word</span>
   <span class='ivar'>@random_word</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      
-      <span id=""></span>
-      <div class="method_details ">
-  <h3 class="signature " id="scrubbed_dict-instance_method">
-  
-    #<strong>scrubbed_dict</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(readonly)</span>
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>Returns the value of attribute scrubbed_dict</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-2
-3
-4</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/word.rb', line 2</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_scrubbed_dict'>scrubbed_dict</span>
-  <span class='ivar'>@scrubbed_dict</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -662,6 +580,7 @@
       <pre class="lines">
 
 
+13
 14
 15
 16
@@ -671,11 +590,12 @@
 20</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/word.rb', line 14</span>
+      <pre class="code"><span class="info file"># File 'lib/word.rb', line 13</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_dictionary_exists?'>dictionary_exists?</span>
   <span class='kw'>unless</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_exist?'>exist?</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>./lib/dictionary.txt</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-    <span class='ivar'>@scrubbed_dict</span> <span class='op'>=</span> <span class='id identifier rubyid_scrub_dictionary'>scrub_dictionary</span><span class='lparen'>(</span><span class='cvar'>@@raw_dictionary</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_raw_dictionary'>raw_dictionary</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_readlines'>readlines</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>./lib/5desk.txt</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='ivar'>@scrubbed_dict</span> <span class='op'>=</span> <span class='id identifier rubyid_scrub_dictionary'>scrub_dictionary</span><span class='lparen'>(</span><span class='id identifier rubyid_raw_dictionary'>raw_dictionary</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_create_dictionary_file'>create_dictionary_file</span><span class='lparen'>(</span><span class='ivar'>@scrubbed_dict</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
   <span class='id identifier rubyid_load_dictionary'>load_dictionary</span>
@@ -874,7 +794,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sun Sep 24 02:52:55 2017 by
+  Generated on Sun Sep 24 10:42:22 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.9 (ruby-2.4.1).
 </div>

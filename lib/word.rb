@@ -1,19 +1,19 @@
 class Word
-  attr_reader :scrubbed_dict, :blank_word, :random_word
 
-  @@raw_dictionary = File.readlines("./lib/5desk.txt")
+  attr_reader :blank_word, :random_word
 
   #initialize object
   def initialize
     dictionary_exists?
-    @random_word = pick_random_word(scrubbed_dict).strip
+    @random_word = pick_random_word(@scrubbed_dict).strip
     @blank_word = hide_word(random_word)
   end
 
   #checks working dir for scrubbed dictionary
   def dictionary_exists?
     unless File.exist?("./lib/dictionary.txt")
-      @scrubbed_dict = scrub_dictionary(@@raw_dictionary)
+      raw_dictionary = File.readlines("./lib/5desk.txt")
+      @scrubbed_dict = scrub_dictionary(raw_dictionary)
       create_dictionary_file(@scrubbed_dict)
     end
     load_dictionary

@@ -9,9 +9,9 @@ class Game
   #initializing object
   def initialize
     @turns = 12
-    @word = Word.new
-    @secret_word = @word.random_word
-    @hidden_word = @word.blank_word
+    word = Word.new
+    @secret_word = word.random_word
+    @hidden_word = word.blank_word
     @guesses = []
     @current_guess = ""
   end

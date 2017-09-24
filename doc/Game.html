@@ -606,9 +606,9 @@ a correct guess in the hidden_word string.</p>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span>
   <span class='ivar'>@turns</span> <span class='op'>=</span> <span class='int'>12</span>
-  <span class='ivar'>@word</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Word.html" title="Word (class)">Word</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Word.html#initialize-instance_method" title="Word#initialize (method)">new</a></span></span>
-  <span class='ivar'>@secret_word</span> <span class='op'>=</span> <span class='ivar'>@word</span><span class='period'>.</span><span class='id identifier rubyid_random_word'>random_word</span>
-  <span class='ivar'>@hidden_word</span> <span class='op'>=</span> <span class='ivar'>@word</span><span class='period'>.</span><span class='id identifier rubyid_blank_word'>blank_word</span>
+  <span class='id identifier rubyid_word'>word</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Word.html" title="Word (class)">Word</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Word.html#initialize-instance_method" title="Word#initialize (method)">new</a></span></span>
+  <span class='ivar'>@secret_word</span> <span class='op'>=</span> <span class='id identifier rubyid_word'>word</span><span class='period'>.</span><span class='id identifier rubyid_random_word'>random_word</span>
+  <span class='ivar'>@hidden_word</span> <span class='op'>=</span> <span class='id identifier rubyid_word'>word</span><span class='period'>.</span><span class='id identifier rubyid_blank_word'>blank_word</span>
   <span class='ivar'>@guesses</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
   <span class='ivar'>@current_guess</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span>
 <span class='kw'>end</span></pre>
@@ -1419,7 +1419,7 @@ a correct guess in the hidden_word string</p>
 </div>
 
       <div id="footer">
-  Generated on Sun Sep 24 02:52:55 2017 by
+  Generated on Sun Sep 24 10:42:22 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.9 (ruby-2.4.1).
 </div>

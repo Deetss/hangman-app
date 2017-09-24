@@ -1,52 +1,52 @@
-require 'sinatra' 
+require 'sinatra'
+require 'json'
 require 'sinatra/reloader' if development?
 require './lib/game.rb'
 
-configure do
-    use Rack::Session::Pool, :key => 'rack.session'
-end
+enable :sessions
 
 get '/end_game' do
-    if session[:game].player_won?
-        feedback = "Congratulations, you've successfully guessed the word! The word was #{session[:game].secret_word}!"
+    if @session["game"].player_won?
+        feedback = "Congratulations, you've successfully guessed the word! The word was #{@session["game"].secret_word}!"
     else
-        feedback = "Sorry for you bad luck! The word was #{session[:game].secret_word}!"
+        feedback = "Sorry for you bad luck! The word was #{@session["game"].secret_word}!"
     end
     erb :end_game, :locals => {:feedback => feedback}
 end
 
 get '/make_guess' do
-    session[:guess] = params[:guess]
-    session[:game].end_turn
-    session[:game].show_letter
+    @session[:guess] = params[:guess]
+
+    feedback = @session["game"].check_guess(@session[:guess]) unless @session[:guess].nil?
+    if feedback == true || @session["game"].turns == 0 || !@session["game"].have_blanks?
+        redirect '/end_game'
+    end
+    @session["game"].end_turn
+    @session["game"].show_letter
     redirect '/play_game'
 end
 
 get '/new_game' do
-    @@game = Game.new
-    session[:game] = @@game
-    p session[:game]
-    session.delete(:guess)
+    game = Game.new
+    session["game"] = game
+    @session = session
+    p @session['game']
+    #@session.delete(:guess)
     redirect '/play_game'
 end
 
 get '/play_game' do
+    @session = session
     blanks = ""
-    game = session[:game]
-    guess = session[:guess]
-    feedback = game.check_guess(guess) unless guess.nil?
-    if feedback == true || game.turns == 0 || !game.have_blanks?
-        redirect '/end_game'
-    end
-    game.hidden_word.each_char do |dash|
+    @session["game"].hidden_word.each_char do |dash|
         blanks << dash + " "
      end
-    erb :play_game, :locals => {:blanks => blanks, :guesses => game.show_guesses, :turns => game.turns}
+    erb :play_game, :locals => {:blanks => blanks, :guesses => @session["game"].show_guesses, :turns => @session["game"].turns}
 end
 
 
 get '/' do
-    session[:game] ||= nil
+    @session = session
     erb :index
 end
 
