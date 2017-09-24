@@ -78,14 +78,8 @@ class Game
     else
       if secret_word.include? @current_guess
         show_letter
-        "This word includes the guessed letter\n\n"
-      # elsif guess == "save"
-      #   create_save
-      #   "Game saved! Exiting game!"
-      #   exit
       else
         @turns -= 1
-        "This word does not include the guessed letter\n\n"
       end
     end
   end
