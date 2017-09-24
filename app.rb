@@ -37,6 +37,9 @@ end
 
 get '/play_game' do
     blanks = ""
+    if @session["game"].nil?
+        redirect '/new_game'
+    end
     @session["game"].hidden_word.each_char do |dash|
         blanks << dash + " "
      end
