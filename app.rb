@@ -2,9 +2,9 @@ require 'sinatra'
 require 'sinatra/reloader' if development?
 require './lib/game.rb'
 
-
-enable :sessions
-set :session_store, Rack::Session::Pool
+configure do
+    use Rack::Session::Pool, :key => 'rack.session'
+end
 
 get '/end_game' do
     if session[:game].player_won?
@@ -22,8 +22,9 @@ get '/make_guess' do
     redirect '/play_game'
 end
 
-get '/new_game' do 
-    session[:game] = Game.new
+get '/new_game' do
+    @@game = Game.new
+    session[:game] = @@game
     p session[:game]
     session.delete(:guess)
     redirect '/play_game'
@@ -45,6 +46,7 @@ end
 
 
 get '/' do
+    session[:game] ||= nil
     erb :index
 end
 
