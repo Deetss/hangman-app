@@ -6,6 +6,9 @@
     <body>
         <div class="center">
             <h1>Hangman<span id="small">*</span></h1>
+            <% if feedback == "Invalid Guess!" %>
+                <p>Invalid Guess!</p>
+            <% end %>
             <p>
                 <%= blanks %>
             </p>
@@ -14,7 +17,7 @@
             <% end %>
             <p>Turns: <%= turns %></p>
             <form action="./make_guess" method="get">
-                <input type="text" name="guess">
+                <input type="text" name="guess" size="11">
                 <input type="submit" value="Guess!">
             </form>
             <a href="/">Back</a>

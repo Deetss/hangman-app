@@ -4,7 +4,7 @@ require "json"
 class Game
 
   attr_accessor :current_guess, :guesses
-  attr_reader :turns, :secret_word, :hidden_word, :save_data
+  attr_reader :turns, :secret_word, :hidden_word, :save_data, :feedback
 
   #initializing object
   def initialize
@@ -13,6 +13,7 @@ class Game
     @secret_word = word.random_word
     @hidden_word = word.blank_word
     @guesses = []
+    @feedback = ""
     @current_guess = ""
   end
 
@@ -70,17 +71,18 @@ class Game
   #gives feedback to the user depending on their input
   def check_guess(guess)
     @current_guess = guess.downcase
-    @guesses << @current_guess unless @current_guess == secret_word
     if @current_guess == secret_word
       player_won?
-    elsif @current_guess.nil?
-      return
+    elsif @current_guess.length > 1 || @current_guess.nil?
+      @feedback = "Invalid Guess!"
     else
+      @feedback = ""
       if secret_word.include? @current_guess
         show_letter
       else
         @turns -= 1
       end
+      @guesses << @current_guess
     end
   end
 
