@@ -10,11 +10,7 @@ before do
 end
 
 get '/end_game' do
-    if @session["game"].player_won?
-        feedback = "Congratulations, you've successfully guessed the word! The word was #{@session["game"].secret_word}!"
-    else
-        feedback = "Sorry for you bad luck! The word was #{@session["game"].secret_word}!"
-    end
+    feedback = @session["game"].game_over
     erb :end_game, :locals => {:feedback => feedback}
 end
 

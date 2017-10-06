@@ -104,6 +104,14 @@ class Game
     @hidden_word.match("_")
   end
 
+  def game_over
+    if player_won?
+      "Congratulations, you've successfully guessed the word! The word was #{@secret_word}!"
+    else
+      "Sorry for you bad luck! The word was #{@secret_word}!"
+    end
+  end
+
   #player wins if they completely guess the @secret_word or there are no more blanks
   def player_won?
     if current_guess == @secret_word || !have_blanks?
