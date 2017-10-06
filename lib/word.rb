@@ -54,6 +54,6 @@ class Word
 
   #hides the chosen word for later uses
   def hide_word(chosen_word)
-    blank_word = chosen_word.gsub(/\w/,"_")
+    blank_word = chosen_word.gsub(/\w/,"_ ").strip
   end
 end

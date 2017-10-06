@@ -18,14 +18,14 @@ get '/end_game' do
     erb :end_game, :locals => {:feedback => feedback}
 end
 
-get '/make_guess' do
+post "/play_game" do
     feedback = @session["game"].check_guess(@session[:guess]) unless @session[:guess].nil?
     if feedback == true || @session["game"].turns == 0 || !@session["game"].have_blanks?
         redirect '/end_game'
     end
     @session["game"].end_turn
     @session["game"].show_letter
-    redirect '/play_game'
+    erb :play_game, :locals => {:blanks => @session["game"].hidden_word, :guesses => @session["game"].show_guesses, :turns => @session["game"].turns, :feedback => @session['game'].feedback}
 end
 
 get '/new_game' do
@@ -36,14 +36,10 @@ get '/new_game' do
 end
 
 get '/play_game' do
-    blanks = ""
     if @session["game"].nil?
         redirect '/new_game'
     end
-    @session["game"].hidden_word.each_char do |dash|
-        blanks << dash + " "
-     end
-    erb :play_game, :locals => {:blanks => blanks, :guesses => @session["game"].show_guesses, :turns => @session["game"].turns, :feedback => @session['game'].feedback}
+    erb :play_game, :locals => {:blanks => @session["game"].hidden_word, :guesses => @session["game"].show_guesses, :turns => @session["game"].turns, :feedback => @session['game'].feedback}
 end
 
 

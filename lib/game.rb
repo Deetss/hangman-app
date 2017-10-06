@@ -4,7 +4,7 @@ require "json"
 class Game
 
   attr_accessor :current_guess, :guesses
-  attr_reader :turns, :secret_word, :hidden_word, :save_data, :feedback
+  attr_reader :turns, :hidden_word, :save_data, :feedback
 
   #initializing object
   def initialize
@@ -60,24 +60,24 @@ class Game
   #parses through the secret word to check for matching guesses, then reveals a correct guess
   #in the hidden_word string
   def show_letter
-      split_blanks = hidden_word.split("")
+      split_blanks = hidden_word.split(" ")
       occurences = []
-      occurences = (0 ... secret_word.length).find_all { |i| secret_word[i,1] == @current_guess}
+      occurences = (0 ... @secret_word.length).find_all { |i| @secret_word[i,1] == @current_guess}
       occurences.each { |i| split_blanks[i] = @current_guess}
-      @hidden_word = split_blanks.join("")
+      @hidden_word = split_blanks.join(" ")
       hidden_word
   end
 
   #gives feedback to the user depending on their input
   def check_guess(guess)
     @current_guess = guess.downcase
-    if @current_guess == secret_word
+    if @current_guess == @secret_word
       player_won?
     elsif @current_guess.length > 1 || @current_guess.nil?
       @feedback = "Invalid Guess!"
     else
       @feedback = ""
-      if secret_word.include? @current_guess
+      if @secret_word.include? @current_guess
         show_letter
       else
         @turns -= 1
@@ -94,7 +94,7 @@ class Game
   #ends turn by removing one remaining turn and outputing a string showing remaining turns
   #unless there are no turns remaining then it calls exit_game?
   def end_turn
-     if @turns < 1 || current_guess == secret_word
+     if @turns < 1 || current_guess == @secret_word
        player_won?
      end
   end
@@ -104,9 +104,9 @@ class Game
     @hidden_word.match("_")
   end
 
-  #player wins if they completely guess the secret_word or there are no more blanks
+  #player wins if they completely guess the @secret_word or there are no more blanks
   def player_won?
-    if current_guess == secret_word || !have_blanks?
+    if current_guess == @secret_word || !have_blanks?
       return true
     else
       return false
@@ -116,7 +116,7 @@ class Game
 end
 
 # game = Game.new
-# word = game.secret_word
+# word = game.@secret_word
 # game.start_game
 # while !game.player_won?
 #   game.show_guesses

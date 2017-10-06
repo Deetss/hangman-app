@@ -16,7 +16,7 @@
                 <p> Guesses Made: <%= guesses %></p>
             <% end %>
             <p>Turns: <%= turns %></p>
-            <form action="./make_guess" method="get">
+            <form action="./play_game" method="post">
                 <input type="text" name="guess" size="11">
                 <input type="submit" value="Guess!">
             </form>
