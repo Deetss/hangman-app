@@ -1,3 +1,4 @@
+require "bundler/setup"
 require 'sinatra'
 require 'sinatra/reloader' if development?
 require './lib/game.rb'
@@ -11,7 +12,7 @@ end
 
 get '/end_game' do
     feedback = @session["game"].game_over
-    erb :end_game, :locals => {:feedback => feedback}
+    erb :end_game, :locals => { :feedback => feedback}
 end
 
 post "/play_game" do
@@ -21,7 +22,12 @@ post "/play_game" do
     end
     @session["game"].end_turn
     @session["game"].show_letter
-    erb :play_game, :locals => {:blanks => @session["game"].hidden_word, :guesses => @session["game"].show_guesses, :turns => @session["game"].turns, :feedback => @session['game'].feedback}
+    erb :play_game, :locals => {
+      blanks: @session["game"].hidden_word,
+      guesses: @session["game"].show_guesses,
+      turns: @session["game"].turns,
+      feedback: @session['game'].feedback
+    }
 end
 
 get '/new_game' do
@@ -42,4 +48,3 @@ end
 get '/' do
     erb :index
 end
-

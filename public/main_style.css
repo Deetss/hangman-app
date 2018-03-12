@@ -1,36 +1,38 @@
 body {
-    background: #5F4D1B;
-    color: white;
+  background: #5F4D1B;
+  color: white;
 }
 
 #small {
-    font-size: 10px;
+  font-size: 10px;
+}
+
+.fp-container {
+  bottom: 0;
+  position: fixed;
+  margin: auto;
+  width: 49%;
+  text-align: center;
 }
 
 #fine-print {
-    bottom: 0px;
-    position: fixed;
-    margin: auto;
-    width: 50%;
-    text-align: center;
-    padding: 10px;
+  padding: 10px;
 }
 
 .center {
-    margin: auto;
-    width: 50%;
-    text-align: center;
-    padding: 10px;
+  margin: auto;
+  width: 50%;
+  text-align: center;
+  padding: 10px;
 }
 
-a:link,
-a:visited {
-    background-color: #f44336;
-    color: white;
-    padding: 14px 25px;
-    text-align: center;
-    border-radius: 2px;
-    text-decoration: none;
-    display: inline-block;
-    margin: 10px 0px;
+a:link, a:visited {
+  background-color: #f44336;
+  color: white;
+  padding: 14px 25px;
+  text-align: center;
+  border-radius: 2px;
+  text-decoration: none;
+  display: inline-block;
+  margin: 10px 0px;
 }
